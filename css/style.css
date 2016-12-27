@@ -1,0 +1,17 @@
+#search_div 
+{
+    display : inline-block;
+    margin-right : 5px; 
+} 
+#search_btn 
+{
+    display : inline-block; 
+} 
+#searchInput
+{
+    width : 500px;
+}
+#search_container
+{
+    width : 100%;
+}

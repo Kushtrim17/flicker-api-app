@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel = "stylesheet" href = "css/style.css">
+    </head>
+    <body onload = "appLoaded()">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Flicker Browser</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right"></ul>
+            </div>
+        </nav>
+        <div class = "container">
+            <div class = "row">
+                <div id = "search_container" class = "col-md-6 col-sm-12 col-md-offset-3">
+                    <div id = "search_div">
+                        <input id = "searchInput" type="text" class = "form-control" placeholder="Search for flicker pictures...">
+                    </div> 
+                    <div id = "search_btn">
+                        <button type = "button" class = "btn btn-default" onclick = "searchForPictures()">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div id = "search_div" class = "col-md-12 col-sm-12">
+                    
+                </div>
+            </div>
+        </div>
+        <script src = "javascript/app.js"></script>
+    </body>
+</html>
