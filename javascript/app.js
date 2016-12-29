@@ -97,7 +97,7 @@ showPhotos = (photos) => {
             html +=         `<img src = '${photo.img}' class = "picture" />`;
             html +=         "<div class = 'caption'>";
             html +=             `<h5>${photo.title}</h5>`;
-            html +=             `<p><a class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
+            html +=             `<p><a id = "btn_${photo.id}" class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
             html +=         "</div>";
             html +=     "</div>";
             html += "</div>";
@@ -133,11 +133,13 @@ addToGallery = (id, img) => {
         galleryPhotos.push(imgObject);
         galleryPhotoNr++;   
         //add the css class to the photo
-        document.getElementById("photo_" + id).className += " selectedPhoto";   
+        document.getElementById("photo_" + id).className += " selectedPhoto";
+        document.getElementById("btn_" + id).innerHTML = "Remove From Gallery";
     }
     else {
         removePhotoFromGallery(imgObject.id);
         document.getElementById("photo_" + id).className = "thumbnail";
+        document.getElementById("btn_" + id).innerHTML = "Add To Gallery";
         galleryPhotoNr--;
     }
     
