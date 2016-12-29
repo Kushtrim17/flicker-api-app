@@ -1,3 +1,7 @@
+.container
+{
+    margin-top: 100px;
+}
 #search_div 
 {
     display : inline-block;
@@ -9,9 +13,33 @@
 } 
 #searchInput
 {
-    width : 500px;
+
 }
 #search_container
 {
     width : 100%;
+}
+#photos_div
+{
+    margin-top: 20px;
+    padding: 10px;
+}
+.picture
+{
+    height: 200px;
+}
+.btnGallery
+{
+    margin-right: 10px;
+    margin-top: 7px;
+}
+#photos_thumbnail
+{
+    position: absolute;
+    bottom: 2px;
+}
+.photoThumbnail
+{
+    width: 100px;
+    height: 100px;
 }
