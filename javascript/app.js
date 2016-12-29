@@ -38,7 +38,8 @@
  * appLoaded - triggered when the application loads
  */
 appLoaded = () => {
-    
+    //focus the cursor on the search input
+    document.getElementById("searchInput").focus();
 }
 
 /**
@@ -51,6 +52,14 @@ searchForPictures = () => {
         allPhotos = photos;
         showPhotos(photos);
     });
+}
+
+enterPressed = (event) => {
+    var code = (event.keyCode ? event.keyCode : event.which);
+    //Enter keycode 13
+    if(code == 13) {
+        searchForPictures();
+    }
 }
 
 /**
