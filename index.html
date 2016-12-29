@@ -6,31 +6,38 @@
         <link rel = "stylesheet" href = "css/style.css">
     </head>
     <body onload = "appLoaded()">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Flicker Browser</a>
                 </div>
-                <ul class="nav navbar-nav navbar-right"></ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <div id = "divShowButton"></div>
+                </ul>
             </div>
         </nav>
         <div class = "container">
             <div class = "row">
-                <div id = "search_container" class = "col-md-6 col-sm-12 col-md-offset-3">
-                    <div id = "search_div">
-                        <input id = "searchInput" type="text" class = "form-control" placeholder="Search for flicker pictures...">
-                    </div> 
-                    <div id = "search_btn">
-                        <button type = "button" class = "btn btn-default" onclick = "searchForPictures()">Search</button>
+                <div id = "search_container" class = "col-md-6 col-sm-12">
+                    <div class="input-group">
+                        <input id = "searchInput" type = "text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick = "searchForPictures()">Search</button>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class = "row">
-                <div id = "search_div" class = "col-md-12 col-sm-12">
+                <div id = "photos_div" class = "col-md-12 col-sm-12">
+                    
+                </div>
+                <div id = "photos_thumbnail" class = "col-md-12 col-sm-12">
                     
                 </div>
             </div>
         </div>
         <script src = "javascript/app.js"></script>
+        <script src = "javascript/models/flickr.js"></script>
+        <script src = "javascript/models/picture.js"></script>
     </body>
 </html>
