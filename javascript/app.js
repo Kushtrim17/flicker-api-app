@@ -32,6 +32,9 @@ appLoaded = () => {
  * searchForPictures - triggered when the button Search is clicked
  */
 searchForPictures = () => {
+    //add the loader image to indicate that the searching started
+    photosDiv.innerHTML = "<center><img src = 'images/loader.gif' width = '100px' height = '140px' /></center>";
+    
     const userInput = document.getElementById('searchInput').value;
     const flickr = new Flickr();
     flickr.search(userInput, function(photos) {
@@ -40,6 +43,9 @@ searchForPictures = () => {
     });
 }
 
+/**
+ * enterPressed - triggered when enter is pressed after user has written the search term
+ */
 enterPressed = (event) => {
     var code = (event.keyCode ? event.keyCode : event.which);
     //Enter keycode 13
@@ -49,25 +55,59 @@ enterPressed = (event) => {
 }
 
 /**
+ * showGallery - triggered when the button View Gallery is clicked
+ * @return void
+ */
+showGallery = () => {
+    //we have to clear the photos_div and show the gallery instead
+    photosDiv.innerHTML = "";
+    viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'goBackToSearch()' role = 'button'>Go back to search</a>";
+    searchDiv.innerHTML = "";
+    
+    initiateThumbnail();
+}
+
+/**
+ * showPhoto - triggered when the user clicks at one of the thumnails in the gallery view
+ * it changes the photo viewed in the big container
+ * @return void
+ */
+showPhoto = (img) => {
+    photosDiv.innerHTML = `<center><img src = "${img}" class = "bigPicture"></center>`;
+}
+
+/**
+ * goBackToSearch - triggered when the user clicks Go back to search in gallery view mode
+ */
+goBackToSearch = () => {
+    location.reload();
+}
+
+/**
  * showPhotos 
  * @param {Array} photos
  * @return void
  */
 showPhotos = (photos) => {
     let html = "";
-
-    for (let photo of photos) {
-        html += "<div class = 'col-md-4 col-sm-12'>";
-        html +=     `<div id = 'photo_${photo.id}' class = 'thumbnail'>`;
-        html +=         `<img src = '${photo.img}' class = "picture" />`;
-        html +=         "<div class = 'caption'>";
-        html +=             `<h5>${photo.title}</h5>`;
-        html +=             `<p><a class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
-        html +=         "</div>";
-        html +=     "</div>";
-        html += "</div>";
+    if (photos.length > 0 ) {
+        for (let photo of photos) {
+            html += "<div class = 'col-md-4 col-sm-12'>";
+            html +=     `<div id = 'photo_${photo.id}' class = 'thumbnail'>`;
+            html +=         `<img src = '${photo.img}' class = "picture" />`;
+            html +=         "<div class = 'caption'>";
+            html +=             `<h5>${photo.title}</h5>`;
+            html +=             `<p><a class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
+            html +=         "</div>";
+            html +=     "</div>";
+            html += "</div>";
+        }
     }
-
+    else {
+        //no results returned
+        html += "<center><h2 id = 'message_txt'>NO PHOTOS FOUND WITH THE SPECIFIED NAME</h2></center>";
+    }
+    
     //inject photos into the html
     photosDiv.innerHTML = html;
 }
@@ -134,19 +174,6 @@ removePhotoFromGallery = (photoID) => {
 }
 
 /**
- * showGallery - triggered when the button View Gallery is clicked
- * @return void
- */
-showGallery = () => {
-    //we have to clear the photos_div and show the gallery instead
-    photosDiv.innerHTML = "";
-    viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'goBackToSearch()' role = 'button'>Go back to search</a>";
-    searchDiv.innerHTML = "";
-    
-    initiateThumbnail();
-}
-
-/**
  * initiateThumbnail - creates the thumbnail photos when we view the gallery
  * @return void
  */
@@ -161,20 +188,4 @@ initiateThumbnail = () => {
     }
 
     thumbnailDiv.innerHTML = thumbnailHTML;
-}
-
-/**
- * showPhoto - triggered when the user clicks at one of the thumnails in the gallery view
- * it changes the photo viewed in the big container
- * @return void
- */
-showPhoto = (img) => {
-    photosDiv.innerHTML = `<center><img src = "${img}" class = "bigPicture"></center>`;
-}
-
-/**
- * goBackToSearch - triggered when the user clicks Go back to search in gallery view mode
- */
-goBackToSearch = () => {
-    location.reload();
 }
