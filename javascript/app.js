@@ -108,7 +108,7 @@ itemExistsInGallery = (obj) => {
 
 showGallery = () => {
     //we have to clear the photos_div and show the gallery instead
-    photosDiv.innerHTML = "<center><h1>YES SIRR</h1></center>";
+    photosDiv.innerHTML = "";
     viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'showGallery()' role = 'button'>Go back to search</a>";
     searchDiv.innerHTML = "";
     
@@ -116,13 +116,18 @@ showGallery = () => {
 }
 
 initiateThumbnail = () => {
+    photosDiv.innerHTML = `<center><img src = "${galleryPhotos[0].img}" class = "bigPicture"></center>`;
     thumbnailHTML = ""
     for (let photo of galleryPhotos) {
-        thumbnailHTML += "<div class = 'col-xs-6 col-md-1'>";
+        thumbnailHTML += `<div class = 'col-xs-1 col-md-1' onclick = 'showPhoto("${photo.img}")'>`;
         thumbnailHTML += "<a href = '#' class = 'thumbnail photoThumbnail'>";
         thumbnailHTML += `<img src = "${photo.img}" alt = "Photo">`;
         thumbnailHTML += "</a></div>";
     }
 
     thumbnailDiv.innerHTML = thumbnailHTML;
+}
+
+showPhoto = (img) => {
+    photosDiv.innerHTML = `<center><img src = "${img}" class = "bigPicture"></center>`;
 }
