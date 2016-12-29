@@ -118,7 +118,7 @@ itemExistsInGallery = (obj) => {
 showGallery = () => {
     //we have to clear the photos_div and show the gallery instead
     photosDiv.innerHTML = "";
-    viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'showGallery()' role = 'button'>Go back to search</a>";
+    viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'goBackToSearch()' role = 'button'>Go back to search</a>";
     searchDiv.innerHTML = "";
     
     initiateThumbnail();
@@ -139,4 +139,8 @@ initiateThumbnail = () => {
 
 showPhoto = (img) => {
     photosDiv.innerHTML = `<center><img src = "${img}" class = "bigPicture"></center>`;
+}
+
+goBackToSearch = () => {
+    location.reload();
 }
