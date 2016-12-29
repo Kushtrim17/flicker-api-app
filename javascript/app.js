@@ -72,7 +72,7 @@ showPhotos = (photos) => {
 
     for (let photo of photos) {
         html += "<div class = 'col-md-4 col-sm-12'>";
-        html +=     "<div class = 'thumbnail'>";
+        html +=     `<div id = 'photo_${photo.id}' class = 'thumbnail'>`;
         html +=         `<img src = '${photo.img}' class = "picture" />`;
         html +=         "<div class = 'caption'>";
         html +=             `<h5>${photo.title}</h5>`;
@@ -97,6 +97,8 @@ addToGallery = (id, img) => {
         galleryPhotos.push(imgObject);
         galleryPhotoNr++;
         document.getElementById('counter_span').innerHTML = galleryPhotoNr.toString();
+
+        document.getElementById("photo_" + id).className += " selectedPhoto";
     }
 }
 

@@ -43,3 +43,7 @@
     width: 100px;
     height: 100px;
 }
+.selectedPhoto
+{
+    border: 2px solid #428bca;
+}
