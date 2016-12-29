@@ -4,35 +4,21 @@
  */
 
 /**
- * bool
+ * initiate global variables
  */
- let startGalery = false;
-
- let allPhotos = [];
-
- let galleryPhotos = [];
+ let startGalery = false, allPhotos = [], galleryPhotos = [], galleryPhotoNr = 0;
 
 /**
- * 
+ * reference the DOM elements from the view
  */
  const photosDiv = document.getElementById('photos_div');
-
-/**
- * 
- */
+ 
  const thumbnailDiv = document.getElementById('photos_thumbnail');
+ 
+ const viewGalleryDiv = document.getElementById('divShowButton');
+ 
+ const searchDiv = document.getElementById('search_container');
 
- /**
-  * 
-  */
-  const viewGalleryDiv = document.getElementById('divShowButton');
-
-  /**
-   * 
-   */
-  const searchDiv = document.getElementById('search_container');
-
-  let galleryPhotoNr = 0;
 
 /**
  * appLoaded - triggered when the application loads
@@ -86,30 +72,47 @@ showPhotos = (photos) => {
     photosDiv.innerHTML = html;
 }
 
+/**
+ * addToGallery - adds the selected photo to the gallery
+ * @param {String} id - the id of the photo
+ * @param {String} img - the image url
+ * @param void
+ */
 addToGallery = (id, img) => {
     if (!startGalery) {
         startGalery = true;
-        showCheckoutGalleryButton()
+        //show the checkout button
+        const viewGalleryButton = "<button  class = 'btn btn-primary btnGallery' onclick = 'showGallery()' role = 'button'><span id = 'counter_span' class = 'badge'>&nbsp&nbsp&nbsp</span>&nbsp View Gallery</button>";
+        viewGalleryDiv.innerHTML += viewGalleryButton;
     }
 
     const imgObject = { id : id, img : img};
-    if (!itemExistsInGallery(imgObject)) {
+    const photoClass = document.getElementById("photo_" + id).getAttribute("class");
+
+    if (!photoExistsInGallery(imgObject.id)) {
         galleryPhotos.push(imgObject);
-        galleryPhotoNr++;
-        document.getElementById('counter_span').innerHTML = galleryPhotoNr.toString();
-
-        document.getElementById("photo_" + id).className += " selectedPhoto";
+        galleryPhotoNr++;   
+        //add the css class to the photo
+        document.getElementById("photo_" + id).className += " selectedPhoto";   
     }
+    else {
+        removePhotoFromGallery(imgObject.id);
+        document.getElementById("photo_" + id).className = "thumbnail";
+        galleryPhotoNr--;
+    }
+    
+    //update the number at the View Gallery button
+    document.getElementById('counter_span').innerHTML = galleryPhotoNr.toString();
 }
 
-showCheckoutGalleryButton = () => {
-    const viewGalleryButton = "<button  class = 'btn btn-primary btnGallery' onclick = 'showGallery()' role = 'button'><span id = 'counter_span' class = 'badge'>&nbsp&nbsp&nbsp</span>&nbspGallery</button>";
-    viewGalleryDiv.innerHTML += viewGalleryButton;
-}
-
-itemExistsInGallery = (obj) => {
+/**
+ * photoExistsInGallery - helper function that checks if item exists in the gallery
+ * @param {String} photoID
+ * @return {Bool}
+ */
+photoExistsInGallery = (photoID) => {
     for (let photo of galleryPhotos) {
-        if (photo.id == obj.id) {
+        if (photo.id == photoID) {
             return true;
         }
     }
@@ -117,6 +120,23 @@ itemExistsInGallery = (obj) => {
     return false;
 }
 
+/**
+ * removePhotoFromGallery
+ * @param {String} - photoID
+ * @return void
+ */
+removePhotoFromGallery = (photoID) => {
+    for (let i = 0; i < galleryPhotos.length; i++) {
+        if (galleryPhotos[i].id == photoID) {
+            galleryPhotos.splice(i, 1);
+        }
+    }
+}
+
+/**
+ * showGallery - triggered when the button View Gallery is clicked
+ * @return void
+ */
 showGallery = () => {
     //we have to clear the photos_div and show the gallery instead
     photosDiv.innerHTML = "";
@@ -126,6 +146,10 @@ showGallery = () => {
     initiateThumbnail();
 }
 
+/**
+ * initiateThumbnail - creates the thumbnail photos when we view the gallery
+ * @return void
+ */
 initiateThumbnail = () => {
     photosDiv.innerHTML = `<center><img src = "${galleryPhotos[0].img}" class = "bigPicture"></center>`;
     thumbnailHTML = ""
@@ -139,10 +163,18 @@ initiateThumbnail = () => {
     thumbnailDiv.innerHTML = thumbnailHTML;
 }
 
+/**
+ * showPhoto - triggered when the user clicks at one of the thumnails in the gallery view
+ * it changes the photo viewed in the big container
+ * @return void
+ */
 showPhoto = (img) => {
     photosDiv.innerHTML = `<center><img src = "${img}" class = "bigPicture"></center>`;
 }
 
+/**
+ * goBackToSearch - triggered when the user clicks Go back to search in gallery view mode
+ */
 goBackToSearch = () => {
     location.reload();
 }
