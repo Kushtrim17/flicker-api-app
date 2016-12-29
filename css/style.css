@@ -47,3 +47,8 @@
 {
     border: 1px solid #428bca;
 }
+#message_txt
+{
+    margin-top: 170px;
+    opacity: 0.72;
+}
