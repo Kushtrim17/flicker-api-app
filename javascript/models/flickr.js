@@ -15,12 +15,12 @@ class Flickr
         /**
          * the text the user has provided
          */
-        this.INPUT = "&tags=";
+        this.INPUT = "&text=";
 
         /**
          * other params // api_sig &api_sig=0d32ced4238dc6c795886bde9c938d10
          */
-        this.PARAMS = "&per_page=10&page=1";
+        this.PARAMS = "";//"&per_page=15&page=1";
 
         /**
          * the response format
@@ -47,7 +47,8 @@ class Flickr
             this.httpRequest(requestURL, function(data) {
                 if (data instanceof Object && data.stat === "ok") {
                     for (let picture of data.photos.photo) {
-                        let img = `https://farm${picture.farm}.staticflickr.com/${picture.server}/${picture.id}_${picture.secret}.jpg`;
+                        let img = `https://farm${picture.farm}.staticflickr.com/` + 
+                            `${picture.server}/${picture.id}_${picture.secret}.jpg`;
                         picture.img = img;
                     }
 
@@ -61,7 +62,6 @@ class Flickr
         catch (error) {
             console.log(error);
         }
-
 	}
 
     /**
