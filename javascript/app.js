@@ -6,7 +6,7 @@
 /**
  * initiate global variables
  */
- let startGalery = false, allPhotos = [], galleryPhotos = [], galleryPhotoNr = 0;
+ let startGalery = false, allPhotos = [], galleryPhotos = [], galleryPhotoNr = 0, selectedPage;
 
 /**
  * reference the DOM elements from the view
@@ -34,8 +34,8 @@ appLoaded = () => {
 searchForPictures = () => {
     //add the loader image to indicate that the searching started
     photosDiv.innerHTML = "<center><img src = 'images/loader.gif' width = '100px' height = '140px' /></center>";
-    
     const userInput = document.getElementById('searchInput').value;
+
     const flickr = new Flickr();
     flickr.search(userInput, function(photos) {
         allPhotos = photos;
@@ -64,7 +64,7 @@ showGallery = () => {
     viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'goBackToSearch()' role = 'button'>Go back to search</a>";
     searchDiv.innerHTML = "";
     
-    initiateThumbnail();
+    initiateThumbnailView();
 }
 
 /**
@@ -92,11 +92,14 @@ showPhotos = (photos) => {
     let html = "";
     if (photos.length > 0 ) {
         for (let photo of photos) {
-            html += "<div class = 'col-md-4 col-sm-12'>";
+            prepareTitle(photo.title);
+            html += "<div class = 'col-md-4 col-sm-12 card thumb'>";
             html +=     `<div id = 'photo_${photo.id}' class = 'thumbnail'>`;
             html +=         `<img src = '${photo.img}' class = "picture" />`;
+            html +=         '<div class="clearfix visible-md-block"></div>';
             html +=         "<div class = 'caption'>";
-            html +=             `<h5>${photo.title}</h5>`;
+            //html +=             `<h5>${photo.title}</h5>`;
+            html +=             `<h5>${prepareTitle(photo.title)}</h5>`;
             html +=             `<p><a id = "btn_${photo.id}" class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
             html +=         "</div>";
             html +=     "</div>";
@@ -175,19 +178,42 @@ removePhotoFromGallery = (photoID) => {
     }
 }
 
-/**
+/** //col-xs-1 col-md-1//
  * initiateThumbnail - creates the thumbnail photos when we view the gallery
  * @return void
  */
-initiateThumbnail = () => {
+initiateThumbnailView = () => {
     photosDiv.innerHTML = `<center><img src = "${galleryPhotos[0].img}" class = "bigPicture"></center>`;
-    thumbnailHTML = ""
+    thumbnailHTML = "";
     for (let photo of galleryPhotos) {
-        thumbnailHTML += `<div class = 'col-xs-1 col-md-1' onclick = 'showPhoto("${photo.img}")'>`;
-        thumbnailHTML += "<a href = '#' class = 'thumbnail photoThumbnail'>";
-        thumbnailHTML += `<img src = "${photo.img}" alt = "Photo">`;
+        thumbnailHTML += `<div class = 'smallImgDiv inline' onclick = 'showPhoto("${photo.img}")'>`;
+        thumbnailHTML += "<a href = '#' class = ''>";
+        thumbnailHTML += `<img src = "${photo.img}" alt = "Photo" height = "100" width = "100" >`;
         thumbnailHTML += "</a></div>";
     }
 
     thumbnailDiv.innerHTML = thumbnailHTML;
+}
+
+/**
+ * prepareTitle - it takes the raw title that was read from flickr
+ * if it is longer than 100 characters it cuts it
+ * @param rawTitle - the title as read from flickr
+ * @return processedTitle|rowTitle
+ */
+prepareTitle = (rawTitle) => {
+    if (rawTitle.length > 100) {
+        var processedTitle = "";
+        for (let i = 0; i < rawTitle.length; i++) {
+            if (i <= 100) {
+                processedTitle += rawTitle[i];
+            }
+        }
+        processedTitle += "...";
+
+        return processedTitle;
+    }
+    else {
+        return rawTitle
+    }
 }
