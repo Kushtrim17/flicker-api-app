@@ -12,11 +12,11 @@
  * reference the DOM elements from the view
  */
  const photosDiv        = document.getElementById('photos_div');
- 
+
  const thumbnailDiv     = document.getElementById('photos_thumbnail');
- 
+
  const viewGalleryDiv   = document.getElementById('divShowButton');
- 
+
  const searchDiv        = document.getElementById('search_container');
 
 
@@ -63,7 +63,7 @@ showGallery = () => {
     photosDiv.innerHTML = "";
     viewGalleryDiv.innerHTML = "<a  class = 'btn btn-primary btnGallery' onclick = 'goBackToSearch()' role = 'button'>Go back to search</a>";
     searchDiv.innerHTML = "";
-    
+
     initiateThumbnailView();
 }
 
@@ -84,7 +84,7 @@ goBackToSearch = () => {
 }
 
 /**
- * showPhotos 
+ * showPhotos
  * @param {Array} photos
  * @return void
  */
@@ -92,7 +92,6 @@ showPhotos = (photos) => {
     let html = "";
     if (photos.length > 0 ) {
         for (let photo of photos) {
-            prepareTitle(photo.title);
             html += "<div class = 'col-md-4 col-sm-12 card thumb'>";
             html +=     `<div id = 'photo_${photo.id}' class = 'thumbnail'>`;
             html +=         `<img src = '${photo.img}' class = "picture" />`;
@@ -109,7 +108,7 @@ showPhotos = (photos) => {
         //no results returned
         html += "<center><h2 id = 'message_txt'>NO PHOTOS FOUND WITH THE SPECIFIED NAME</h2></center>";
     }
-    
+
     //inject photos into the html
     photosDiv.innerHTML = html;
 }
@@ -133,7 +132,7 @@ addToGallery = (id, img) => {
 
     if (!photoExistsInGallery(imgObject.id)) {
         galleryPhotos.push(imgObject);
-        galleryPhotoNr++;   
+        galleryPhotoNr++;
         //add the css class to the photo
         document.getElementById("photo_" + id).className += " selectedPhoto";
         document.getElementById("btn_" + id).innerHTML = "Remove From Gallery";
@@ -145,7 +144,7 @@ addToGallery = (id, img) => {
         document.getElementById("btn_" + id).innerHTML = "Add To Gallery";
         galleryPhotoNr--;
     }
-    
+
     //update the number at the View Gallery button
     document.getElementById('counter_span').innerHTML = galleryPhotoNr.toString();
 }
