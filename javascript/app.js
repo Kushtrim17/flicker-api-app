@@ -6,7 +6,7 @@
 /**
  * initiate global variables
  */
- let startGalery = false, allPhotos = [], galleryPhotos = [], galleryPhotoNr = 0, selectedPage;
+ let startGalery = false, allPhotos = [], galleryPhotos = [], galleryPhotoNr = 0;
 
 /**
  * reference the DOM elements from the view
