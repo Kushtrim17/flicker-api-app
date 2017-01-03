@@ -11,13 +11,13 @@
 /**
  * reference the DOM elements from the view
  */
- const photosDiv = document.getElementById('photos_div');
+ const photosDiv        = document.getElementById('photos_div');
  
- const thumbnailDiv = document.getElementById('photos_thumbnail');
+ const thumbnailDiv     = document.getElementById('photos_thumbnail');
  
- const viewGalleryDiv = document.getElementById('divShowButton');
+ const viewGalleryDiv   = document.getElementById('divShowButton');
  
- const searchDiv = document.getElementById('search_container');
+ const searchDiv        = document.getElementById('search_container');
 
 
 /**
@@ -98,7 +98,6 @@ showPhotos = (photos) => {
             html +=         `<img src = '${photo.img}' class = "picture" />`;
             html +=         '<div class="clearfix visible-md-block"></div>';
             html +=         "<div class = 'caption'>";
-            //html +=             `<h5>${photo.title}</h5>`;
             html +=             `<h5>${prepareTitle(photo.title)}</h5>`;
             html +=             `<p><a id = "btn_${photo.id}" class = 'btn btn-primary' onclick = 'addToGallery("${photo.id}", "${photo.img}")' role = 'button'>Add To Gallery</a></p>`;
             html +=         "</div>";
@@ -140,6 +139,7 @@ addToGallery = (id, img) => {
         document.getElementById("btn_" + id).innerHTML = "Remove From Gallery";
     }
     else {
+        //the item already exists in the gallery so we should remove it
         removePhotoFromGallery(imgObject.id);
         document.getElementById("photo_" + id).className = "thumbnail";
         document.getElementById("btn_" + id).innerHTML = "Add To Gallery";

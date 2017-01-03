@@ -1,3 +1,5 @@
+"use strict";
+
 class Flickr
 {
     //the constructor of the class
@@ -18,9 +20,10 @@ class Flickr
         this.INPUT = "&text=";
 
         /**
-         * other params // api_sig &api_sig=0d32ced4238dc6c795886bde9c938d10
+         * other params e.g. //"&per_page=15&page=1"// 
+         * .. for now we keep it empty
          */
-        this.PARAMS = "";//"&per_page=15&page=1";
+        this.PARAMS = "";;
 
         /**
          * the response format
