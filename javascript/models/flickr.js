@@ -20,7 +20,7 @@ class Flickr
         this.INPUT = "&text=";
 
         /**
-         * other params e.g. //"&per_page=15&page=1"// 
+         * other params e.g. //"&per_page=15&page=1"//
          * .. for now we keep it empty
          */
         this.PARAMS = "";;
@@ -39,7 +39,7 @@ class Flickr
     /**
      * search - makes an API call to Flickr service with the required word
      * @param {String} text - is the text user has provided us with
-     * @param {Callback} callback 
+     * @param {Callback} callback
      * @return {Array} pictures - the pictures array
      */
     search(text, callback) {
@@ -50,8 +50,12 @@ class Flickr
             this.httpRequest(requestURL, function(data) {
                 if (data instanceof Object && data.stat === "ok") {
                     for (let picture of data.photos.photo) {
-                        let img = `https://farm${picture.farm}.staticflickr.com/` + 
+                        //in order to construct an image we have to combine the different
+                        //parameters that we get from the API response in the following way
+                        let img = `https://farm${picture.farm}.staticflickr.com/` +
                             `${picture.server}/${picture.id}_${picture.secret}.jpg`;
+
+                        //then we add the image i.e. image url to the picture object
                         picture.img = img;
                     }
 

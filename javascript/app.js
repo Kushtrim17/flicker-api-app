@@ -1,6 +1,7 @@
 /**
  * @author Kushtrim Abdiu
  * this is the app controller
+ * NOTE : for this app we have used Javascript EcmaScript 2015 standards
  */
 
 /**
